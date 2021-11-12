@@ -1,22 +1,19 @@
-import { ExpressRequestInterface } from '@app/types/expressRequest.interface';
 import {
   Body,
   Controller,
   Get,
   Post,
   Put,
-  Req,
   UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { User } from './decorators/user.decorator';
 import { CreateUserDto } from './dto/createUser.dto';
 import { LoginUserDto } from './dto/loginUser.dto';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { AuthGuard } from './guards/auth.guard';
-import { userResponseInterface } from './types/userResponse.interface';
+import { UserResponseInterface } from './types/userResponse.interface';
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
 
@@ -27,7 +24,7 @@ export class UserController {
   @UsePipes(new ValidationPipe())
   async createUser(
     @Body('user') createUserDto: CreateUserDto,
-  ): Promise<userResponseInterface> {
+  ): Promise<UserResponseInterface> {
     const user = await this.userService.createUser(createUserDto);
     return this.userService.buildUserResponse(user);
   }
@@ -36,14 +33,14 @@ export class UserController {
   @UsePipes(new ValidationPipe())
   async loginUser(
     @Body('user') loginUserDto: LoginUserDto,
-  ): Promise<userResponseInterface> {
+  ): Promise<UserResponseInterface> {
     const user = await this.userService.login(loginUserDto);
     return this.userService.buildUserResponse(user);
   }
 
   @Get('user')
   @UseGuards(AuthGuard)
-  async currentUser(@User() user: UserEntity): Promise<userResponseInterface> {
+  async currentUser(@User() user: UserEntity): Promise<UserResponseInterface> {
     return this.userService.buildUserResponse(user);
   }
 
@@ -53,7 +50,7 @@ export class UserController {
   async updateCurrentUser(
     @Body('user') updateUserDto: UpdateUserDto,
     @User('id') currentUserId: number,
-  ): Promise<userResponseInterface> {
+  ): Promise<UserResponseInterface> {
     const user = await this.userService.updateUser(
       currentUserId,
       updateUserDto,

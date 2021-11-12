@@ -6,7 +6,7 @@ import { compare } from 'bcrypt';
 
 import { CreateUserDto } from './dto/createUser.dto';
 import { UserEntity } from './user.entity';
-import { userResponseInterface } from './types/userResponse.interface';
+import { UserResponseInterface } from './types/userResponse.interface';
 import { LoginUserDto } from './dto/loginUser.dto';
 import { JWT_SECRET } from 'config';
 import { UpdateUserDto } from './dto/updateUser.dto';
@@ -87,7 +87,7 @@ export class UserService {
     );
   }
 
-  buildUserResponse(user: UserEntity): userResponseInterface {
+  buildUserResponse(user: UserEntity): UserResponseInterface {
     return {
       user: {
         ...user,
