@@ -1,9 +1,6 @@
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AppController } from '@app/app.controller';
-import { AppService } from '@app/app.service';
-
 import { TagModule } from '@app/tag/tag.module';
 import { UserModule } from './user/user.module';
 
@@ -22,8 +19,6 @@ import { CommentModule } from './comment/comment.module';
     ProfileModule,
     CommentModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
